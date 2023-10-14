@@ -1,15 +1,11 @@
 pipeline {
-  agent {
-    node {
-      label 'docker-agent-python'
-    }
+    agent None
+    stages {
+        stage('Build') {
+            steps {
+                echo "Building.."
+                sh '''
 
-  }
-  stages {
-    stage('Build') {
-      steps {
-        echo 'Building..'
-        sh '''
                 cd myapp
                 pip install -r requirements.txt
                 '''
