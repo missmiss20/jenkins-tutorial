@@ -1,39 +1,57 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'custom_agent_python'
+            reuseNode true
+        }
+    }
+
     stages {
-        stage('Build') {
+        stage('Build Docker Image') {
+            agent none
             steps {
-                echo "Building.."
-                sh '''
+                script {
+                    // Build the Docker image from the Dockerfile
+                    docker.build('custom_agent_python', '-f path/to/Dockerfile .')
+                }
+            }
+        }
 
-                cd myapp
-                pip install -r requirements.txt
+        stage('Install Requirements') {
+            steps {
+                echo "Installing Requirements"
+                sh 
                 '''
-      }
+                    cd myapp
+                    pip install -r requirements.txt
+                '''
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Testing'
+                sh  
+                '''
+                    cd myapp
+                    python3 hello.py
+                    python3 hello.py --name=Brad
+                '''
+            }
+        }
+
+        stage('Deliver') {
+            steps {
+                echo 'Deliver'
+                sh 
+                '''
+                    echo "doing delivery stuff.."
+                '''
+            }
+        }
     }
 
-    stage('Test') {
-      steps {
-        echo 'Testing..'
-        sh '''
-                cd myapp
-                python3 hello.py
-                python3 hello.py --name=Brad
-                '''
-      }
+    triggers {
+        pollSCM('* * * * *')
     }
-
-    stage('Deliver') {
-      steps {
-        echo 'Deliver....'
-        sh '''
-                echo "doing delivery stuff.."
-                '''
-      }
-    }
-
-  }
-  triggers {
-    pollSCM('* * * * *')
-  }
 }
