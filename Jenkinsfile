@@ -12,7 +12,7 @@ pipeline {
             steps {
                 script {
                     // Build the Docker image from the Dockerfile
-                    docker.build('custom_agent_python', '-f path/to/Dockerfile .')
+                    docker.build('custom_agent_python', '-f myapp/Dockerfile .')
                 }
             }
         }
@@ -20,8 +20,7 @@ pipeline {
         stage('Install Requirements') {
             steps {
                 echo "Installing Requirements"
-                sh 
-                '''
+                sh '''
                     cd myapp
                     pip install -r requirements.txt
                 '''
@@ -31,8 +30,7 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Testing'
-                sh  
-                '''
+                sh  '''
                     cd myapp
                     python3 hello.py
                     python3 hello.py --name=Brad
@@ -43,8 +41,7 @@ pipeline {
         stage('Deliver') {
             steps {
                 echo 'Deliver'
-                sh 
-                '''
+                sh '''
                     echo "doing delivery stuff.."
                 '''
             }
