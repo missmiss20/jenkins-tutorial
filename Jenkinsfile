@@ -1,8 +1,5 @@
 pipeline {
     agent None
-    triggers {
-        pollSCM '* * * * *'
-    }
     stages {
         stage('Build') {
             steps {
