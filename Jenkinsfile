@@ -1,9 +1,6 @@
 pipeline {
     agent {
-        docker {
-            image 'custom_agent_python'
-            reuseNode true
-        }
+        docker { image 'custom_agent_python'}
     }
 
     stages {
