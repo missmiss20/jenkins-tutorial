@@ -64,7 +64,7 @@ docker inspect <container_id> | grep IPAddress
 ```
 
 ```
-docker run -d --restart=always -p 127.0.0.1:2376:2375 --network jenkins -v connector-volume:/var/run/docker.sock --name socat-container socat-image:v1.0 socat tcp-listen:2375,fork,reuseaddr unix-connect:/var/run/docker.sock
+docker run -d --restart=always -p 127.0.0.1:2376:2375 --network jenkins -v connector-volume:/var/run/docker.sock --name socat-container alpine/socat tcp-listen:2375,fork,reuseaddr unix-connect:/var/run/docker.sock
 ```
 
 ## Using my Jenkins Python Agent
