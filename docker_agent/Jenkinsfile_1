@@ -1,19 +1,12 @@
 pipeline {
-    agent any
-
-    stages {
-        stage('test') {
-            agent {
-                docker {
-                    // Specify the image you want to use
-                    image 'node:16-alpine'
-                    // Run the container in privileged mode if needed
-                    args '-u root'
-                }
-            }
-            steps {
-                sh 'node --version'
-            }
-        }
+  agent {
+    docker { image 'node:16-alpine' }
+  }
+  stages {
+    stage('Test') {
+      steps {
+        sh 'node --version'
+      }
     }
+  }
 }
